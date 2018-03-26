@@ -13,7 +13,8 @@
 		<input type="text" ng-model="ctrl.input1">
 		<span ng-bind="ctrl.selectedOperation"></span>
 		<input type="text" ng-model="ctrl.input2">
-		<button>=</button>
+		<button ng-click="ctrl.computeResult()">=</button>
+		<span ng-bind="ctrl.resultValue"></span>
 		<br>
 		<br>
 		<label>Elije la operación</label>
