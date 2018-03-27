@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<title>Primer práctica</title>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+	
+	<div ng-controller="myFirstCtrl as vm" >
+	
+		<div class="container">	
+
+			<h2>ToDo List</h2>
+			<br>
+			<form>
+			  <div class="input-group">
+			    <input type="text" class="form-control" ng-model="vm.task.name">
+			    <div class="input-group-btn">
+			      <button class="btn btn-default" ng-click="vm.addTask(vm.task)" type="submit">+Agregar tarea</button>
+			    
+			    </div>
+			    <input type="text" class="form-control" ng-model="vm.task.name2">
+
+			    <button class="btn btn-default" ng-click = "vm.findTask(vm.task)" type="submit">Buscar dato</button>
+			    
+			  	</div>
+
+			</form>
+
+			<br>
+			<h3>Lista de pendientes</h3>
+			<br>
+				<!-- <pre>{{ vm.tasks | json}}</pre> -->
+			<div  ng-repeat="task in vm.tasks" >
+				
+				<input type="checkbox" ng-model="task.isCompleted" ng-change="vm.updateTask(task)"> <span>{{ task.name }}</span>
+
+
+<!-- 				<span class="pull-right">
+				
+					<button class="btn btn-primary btn-xs ng-show="!todo.done"><span ng-click="doneTask($index)">check</span></button>
+
+					<button class="btn btn-danger btn-default col-lg-1"><span ng-click="deleteTask($index)">delete</span></button> 
+				
+				</span> -->
+					 
+			</div>
+			
+		</div>
+	</div>
+
+</body>
+
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script >
+	
+	angular
+
+		.module('app', [])
+		.controller('myFirstCtrl', myFirstCtrl)
+		.service('myFirstService', myFirstService);
+
+		// -- Controller
+
+		myFirstCtrl.$inject = ['myFirstService'];
+
+		function myFirstCtrl(myFirstService){
+			
+			var vm=this;
+
+			vm.tasks=[];
+
+			vm.task={
+				name:'',
+				isCompleted: false
+			}
+
+			vm.addTask = addTask;
+			vm.updateTask = updateTask;
+			vm.findTask = findTask;
+
+			function addTask(task) {
+
+				myFirstService.post('/tasks',task,function(err,data){
+					if(err) return alert(err);
+					if(data.success){
+						getTask();
+					}	
+				});
+				// var todo=angular.copy(task);
+				// vm.tasks.push(todo);	
+			}
+
+			function getTask(){
+				myFirstService.get('/tasks', function(err,data){
+					if(err) return alert(err);
+					vm.tasks = data;
+				});
+			}
+
+			function updateTask(task){
+				myFirstService.put('/tasks', task, function(err,data){
+					if(err) return alert(err);
+					if(data.success){
+						getTask();
+					}
+				});	
+			}
+
+			function findTask(task){
+				console.log('hola');
+				myFirstService.post('/task2', task, function(err,data){
+					if(err) return alert(err);
+						vm.tasks = data;
+				});	
+			}				
+
+			getTask();
+		}
+
+		
+		// --service
+		myFirstService.$inject = ['$http'];
+
+		function myFirstService($http){
+
+			return {
+				get: get,
+				post : post,
+				put : put
+			}
+
+			function get(url, callback){
+				$http({
+					method : 'get',
+					url : url,
+					headers: {}
+				}).then(function(response){
+					callback(null, response.data);
+				},function(err){
+					callback(err);
+				});
+			}
+
+			function post(url,body,callback){
+				$http({
+					method : 'post',
+					url : url,
+					headers : {
+						'Content-Type' : 'application/json; charset=utf-8'
+					},
+					data : body
+				}).then(function(response){
+					callback(null, response.data);
+				},function(err){
+					callback(err);
+				});
+			}
+
+			function put(url,body,callback){
+				$http({
+					method : 'put',
+					url : url,
+					headers : {
+						'Content-Type' : 'application/json; charset=utf-8'
+					},
+					data : body
+				}).then(function(response){
+					callback(null, response.data);
+				},function(err){
+					callback(err);
+				});
+			}
+
+		}
+</script>
+
+</html>
