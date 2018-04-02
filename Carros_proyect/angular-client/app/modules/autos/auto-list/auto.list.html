@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="row navbar" style="background-color: #e3f2fd;">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <a href="http://www.hovahealth.com/" target="blank">
+                <img width="150" src="http://www.hovahealth.com/development/wp-content/uploads/2014/09/logo.png" alt="">
+            </a>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <span class="navbar-brand">|</span>
+            <a class="navbar-brand" ui-sref="home">Auto app</a>
+            <span class="navbar-brand">|</span>
+            <a class="navbar-brand" ui-sref="autoCreate">Crea Autos </a>
+            <span class="navbar-brand">|</span>
+            <a class="navbar-brand" ui-sref="autoList">Lista Autos </a>
+            <span class="navbar-brand">|</span>
+        </div>
+    </div>
+    <!-- cabecera -->
+    <ui-view>
+        <div class="row">
+            <div class=" navbar col-sm-2" style="background-color:lightseagreen;">
+                <h3>Filtros</h3>
+                <div class="form-group">
+                    <label class="control-label ">Marca</label>
+                    <select class="form-control">
+                        <option></option>
+                        <option ng-repeat="task in vm.tasks">{{ task.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label ">Modelo</label>
+                    <select class="form-control">
+                        <option></option>
+                        <option ng-repeat="task in vm.tasks">{{ task.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label ">Año</label>
+                    <select class="form-control">
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label ">Color</label>
+                    <select class="form-control">
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+                <div style="text-align:right">
+                    <button class="btn btn-default" ng-click="vm.findTask(vm.task)" type="submit">Enviar Datos</button>
+                </div>
+            </div>
+            <div class="col-sm-10" style="background-color:lemonchiffon ;">
+                <div class="row navbar" ng-controller="AutoListCtrl as vm">
+                    <table class="table table-bordered table-hover">
+                        <h2 style="text-align:center">Lista autos</h2>
+                        <thead>
+                            <tr>
+                                <th style="text-align:center">Imagen</th>
+                                <th style="text-align:center">Marca</th>
+                                <th style="text-align:center">Modelo</th>
+                                <th style="text-align:center">Popularidad</th>
+                                <th style="text-align:center">Operación</th>
+                            </tr>
+                        </thead>
+                        <tbody data-toggle="modal" data-target="#ventEmergente" ng-repeat="car in vm.cars">
+                            <tr>
+                                <td ng-bind="vm.folio" style="text-align:center"></td>
+                                <td ng-bind="vm.marca" style="text-align:center"></td>
+                                <td ng-bind="vm.modelo" style="text-align:center"></td>
+                                <td ng-bind="vm.year" style="text-align:center"></td>
+                                <td ng-bind="vm.color" style="text-align:center"></td>
+                                <td ng-bind="vm.status" style="text-align:center"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr>
+            <!-- VENTANA MODAL -->
+            <div class="modal fade" id="ventEmergente" tabindex="-1" role="dialog" aria-labelledby="ventEmergenteTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Autos</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="media-left">
+                                <img src="" alt="imagen 1">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">DATOS PARTICULARES</h4>
+                                <div>
+                                    <p>
+                                        <h6>Location</h6>
+                                    </p>
+                                    <p>OTROS DATOS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui-view>
+</div>

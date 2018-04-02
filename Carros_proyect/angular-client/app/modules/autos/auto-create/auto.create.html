@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row navbar" style="background-color: #e3f2fd;">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <a href="http://www.hovahealth.com/" target="blank">
+                <img width="150" src="http://www.hovahealth.com/development/wp-content/uploads/2014/09/logo.png" alt="">
+            </a>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <span class="navbar-brand">|</span>
+            <a class="navbar-brand" ui-sref="home">Auto app</a>
+            <span class="navbar-brand">|</span>
+            <a class="navbar-brand" ui-sref="autoCreate">Crea Autos </a>
+            <span class="navbar-brand">|</span>
+            <a class="navbar-brand" ui-sref="autoList">Lista Autos </a>
+            <span class="navbar-brand">|</span>
+        </div>
+    </div>
+    <ui-view>
+        <div class="row" style="background-color:powderblue">
+            <div class="col-sm-12">
+                <h2 style="text-align:center">Captura de autos</h2>
+            </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label ">Folio*</label>
+                        <div class="">
+                            <input type="text" class="form-control" ng-model="vm.task.name" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label ">Marca*</label>
+                        <div class="">
+                            <select class="form-control" required="">
+                                <option></option>
+                                <option ng-repeat="task in vm.tasks">{{ task.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label ">Modelo*</label>
+                        <div class="">
+                            <select class="form-control" required="">
+                                <option></option>
+                                <option ng-repeat="task in vm.tasks">{{ task.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label ">Año*</label>
+                        <div>
+                            <select class="form-control" required="">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label ">Color*</label>
+                        <div>
+                            <select class="form-control" required="">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" class="form-control-file">
+                    </div>
+                    <div class="form-group  ">
+                        <button class="btn btn-default" ng-click="vm.findTask(vm.task)" type="submit" justify-content="right	">Enviar Datos</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </ui-view>
+</div>
